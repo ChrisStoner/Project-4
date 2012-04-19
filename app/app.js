@@ -10,6 +10,11 @@ var express = require('express')
 var ejs = require('ejs');
 var app = module.exports = express.createServer();
 var cf = require('./cloudfoundry');
+var Db = require('mongodb').Db;
+var Connection = require('mongodb').Connection;
+var Server = require('mongodb').Server;
+var BSON = require('mongodb').BSON;
+var ObjectID = require('mongodb').ObjectID;
 
 // Configuration
 
