@@ -10,3 +10,6 @@ exports.index = function(req, res){
   res.render('index', { title: 'CSCI', postName:postName, post:post, postReplies:postReplies, originalPostDetail:originalPostDetail, postRepliesDetails: postRepliesDetails})
 };
 
+exports.signup = function(req, res) {
+  res.render('index', signup)
+  };

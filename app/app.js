@@ -10,10 +10,6 @@ var express = require('express')
 var ejs = require('ejs');
 var app = module.exports = express.createServer();
 var cf = require('./cloudfoundry');
-var signup = require('./routes/user/signup');
-
-//var renders = require('./renders');
-//var signup = require('./renders/signup');
 
 // Configuration
 
@@ -36,9 +32,7 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/user/signup', signup.index);
-//app.get('/renders') renders.index);
-//app.get('/user/signup', signup.index);
+app.get('/user/signup', routes.index);
 
 app.listen(cf.port || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
