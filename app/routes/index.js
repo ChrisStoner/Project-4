@@ -11,5 +11,5 @@ exports.index = function(req, res){
 };
 
 exports.signup = function(req, res) {
-  res.render('index', signup)
+  res.render('signup')
   };
