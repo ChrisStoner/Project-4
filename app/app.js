@@ -33,7 +33,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-app.get('/user/signup', function(req, res){
+app.get('/signup', function(req, res){
   res.render('signup', {
     title: 'signup'
   });
