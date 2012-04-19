@@ -1,17 +1,17 @@
-ArticleProvider = function(host, port) {
+articleProvider = function(host, port) {
   this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
   this.db.open(function(){});
 };
 
 
-ArticleProvider.prototype.getCollection= function(callback) {
+articleProvider.prototype.getCollection= function(callback) {
   this.db.collection('articles', function(error, article_collection) {
     if( error ) callback(error);
     else callback(null, article_collection);
   });
 };
 
-ArticleProvider.prototype.findAll = function(callback) {
+articleProvider.prototype.findAll = function(callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
@@ -24,7 +24,7 @@ ArticleProvider.prototype.findAll = function(callback) {
 };
 
 
-ArticleProvider.prototype.findById = function(id, callback) {
+articleProvider.prototype.findById = function(id, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
@@ -36,7 +36,7 @@ ArticleProvider.prototype.findById = function(id, callback) {
     });
 };
 
-ArticleProvider.prototype.save = function(articles, callback) {
+articleProvider.prototype.save = function(articles, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
@@ -59,4 +59,4 @@ ArticleProvider.prototype.save = function(articles, callback) {
     });
 };
 
-exports.ArticleProvider = ArticleProvider;
+exports.articleProvider = articleProvider;

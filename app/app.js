@@ -16,7 +16,7 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
-var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
+var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
 
 // Configuration
 
@@ -50,7 +50,7 @@ app.listen(cf.port || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 app.get('/blog/new', function(req, res) {
-    res.render('blog_new.ejs', { locals: {
+    res.render('blog_new', { locals: {
         title: 'New Post'
     }
     });
