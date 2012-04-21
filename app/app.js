@@ -89,13 +89,16 @@ app.post('/blog/addComment', function(req, res) {
        });
 });
 
-app.get('/saveexample', function(req, res){
-  var u = new User({firstName: 'joe', lastName: 'smith', username: 'joe', password: 'secret', email: 'dk@unca.edu'});
+app.post('/signup', function(req, res){
+  var u = new User({firstname:req.form.firstname, lastname:req.form.lastname, username:req.form.username, password:req.form.password, email:req.form.email});
+  //var u = new User({firstname: firstname, lastname: lastname, username: username, password: password, email: email});
   u.save(function(err){
      if(err)
-        res.send('ERROR!');
+        console.log('ERROR!');
      else
-        res.send('SAVED!');
+        console.log('SAVED!');
     });
 });
+
+
 
