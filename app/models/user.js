@@ -4,8 +4,11 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 //define fields
+  firstname : String,
+  lastname : String,
   username : String,
   password : String,
+  email : String,
 })
 
 var User = mongoose.model('User', UserSchema); // (model name , schema being used)
