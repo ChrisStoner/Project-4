@@ -89,16 +89,24 @@ app.post('/blog/addComment', function(req, res) {
        });
 });
 
+
 app.post('/signup', function(req, res){
-  var u = new User({firstname:req.form.firstname, lastname:req.form.lastname, username:req.form.username, password:req.form.password, email:req.form.email});
-  //var u = new User({firstname: firstname, lastname: lastname, username: username, password: password, email: email});
+  var u = new User({firstname:req.body.firstname, lastname:req.body.lastname, username:req.body.username, password:req.body.password, email:req.body.email});
+
   u.save(function(err){
-     if(err)
-        console.log('ERROR!');
-     else
-        console.log('SAVED!');
-    });
+    if(err)
+       res.redirect('/failed');
+    else
+        res.redirect('/saved');
+   });
 });
 
 
+app.get('/failed', function(req, res) {
+  res.send('ERROR');
+});
+
+app.get('/saved', function(req, res) {
+  res.send('SUCCESS!');
+});
 
