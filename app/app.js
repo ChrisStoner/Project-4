@@ -15,8 +15,11 @@ var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
+var mongoose = require('mongoose');
+var User = require('./models/user'); // require model, pull in user model created
 
 var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
+mongoose.connect('mongodb://localhost/example_db') // will create the example_db database if it doesn't already exist.
 
 // Configuration
 
@@ -85,3 +88,14 @@ app.post('/blog/addComment', function(req, res) {
            res.redirect('/blog/' + req.param('_id'))
        });
 });
+
+app.get('/saveexample', function(req, res){
+  var u = new User({username: 'joe', password: 'secret'});
+  u.save(function(err){
+     if(err)
+        res.send('ERROR!');
+     else
+        res.send('SAVED!');
+    });
+});
+
