@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema; 
 
+function validatePresenceOf(value) {
+  return value && value.length;
+}
 
 var UserSchema = new Schema({
 //define fields
@@ -8,8 +11,10 @@ var UserSchema = new Schema({
   lastname : String,
   username : String,
   password : String,
-  email : String,
-})
+  email : {type: String, validate: [validatePresenceOf, 'an email is required'], index: { unique: true }},
+
+  
+});
 
 var User = mongoose.model('User', UserSchema); // (model name , schema being used)
 
