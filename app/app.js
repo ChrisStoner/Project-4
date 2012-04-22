@@ -43,6 +43,22 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+
+//gets the about page
+app.get('/about', function(req, res){
+	res.render('about', { 
+		title: 'about'
+	});
+});
+
+//gets the contact page
+app.get('/contact', function(req, res){
+	res.render('contact', { 
+		title: 'contact'
+	});
+});
+
+//gets the signup page
 app.get('/signup', function(req, res){
   res.render('signup', {
     title: 'signup'
