@@ -43,37 +43,19 @@ app.configure('production', function(){
 
 // Routes
 
-/**
-app.get('/', function(req, res){
-//  postName = "some post name";
-var postName = submit.findOne({'posttitle': 1});
-console.log(postName);
-var originalPostDetail = "Post details here - author's username/date/time?";
-var post = "Posted code goes here. How many posts to show?  Archive by age? Have number of views posted?  Number of replies? Note that the header and code section is set up in index.ejs, being added to body tag in layout.ejs.";
-var postReplies = "Some post reply goes here (or should we have them click on the post to see the replies??)";
-var postRepliesDetails = "post reply details go here - author's username/date/time?";
-
-  res.render('index', 
-    { title: 'CSCI', 
-    postName:postName, 
-    originalPostDetail:originalPostDetail, 
-    post:post, 
-    postReplies:postReplies,
-    postRepliesDetails:postRepliesDetails, })
-});
-
-*/
 
 app.get('/', function(req, res){
-    submit.find({}, function(error,docs){
+    submit.find({}, ['posttitle'],  function(error,posttitle){
+      submit.find({}, ['post'], function(error, post){
         res.render('index.ejs', { locals: {
-            title: 'test',
-            post:docs,
-            postName:'some post name',
+            title: 'some title',
+            post:post,
+            postName:posttitle,
             originalPostDetail: 'some post detail',
             postReplies: 'some replies',
             postRepliesDetails: 'some reply details'
             }
+          });
         });
     })
 });
@@ -108,42 +90,6 @@ app.get('/signup', function(req, res){
 app.listen(cf.port || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
-app.get('/blog/new', function(req, res) {
-    res.render('blog_new', { locals: {
-        title: 'New Post'
-    }
-    });
-});
-
-app.post('/blog/new', function(req, res){
-    articleProvider.save({
-        title: req.param('title'),
-        body: req.param('body')
-    }, function( error, docs) {
-        res.redirect('/')
-    });
-});
-
-app.get('/blog/:id', function(req, res) {
-    articleProvider.findById(req.params.id, function(error, article) {
-        res.render('blog_show.ejs',
-        { locals: {
-            title: article.title,
-            article:article
-        }
-        });
-    });
-});
-
-app.post('/blog/addComment', function(req, res) {
-    articleProvider.addCommentToArticle(req.param('_id'), {
-        person: req.param('person'),
-        comment: req.param('comment'),
-        created_at: new Date()
-       } , function( error, docs) {
-           res.redirect('/blog/' + req.param('_id'))
-       });
-});
 
 
 app.post('/signup', function(req, res){
