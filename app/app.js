@@ -140,7 +140,7 @@ app.post('/signup', function(req, res){
 });
 
 app.post('/submit', function(req, res){
-  var u = new Submit({post:req.body.post, posttitle:req.body.posttitle});
+  var u = new submit({post:req.body.post, posttitle:req.body.posttitle});
 
   u.save(function(err){
     if(err)
