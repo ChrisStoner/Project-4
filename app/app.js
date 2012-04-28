@@ -17,7 +17,7 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 var mongoose = require('mongoose');
 var User = require('./models/user'); // require model, pull in user model created
-var Submit = require('./models/user');
+var Submit = require('./models/submit');
 
 var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
 mongoose.connect('mongodb://localhost/codebase') // will create the example_db database if it doesn't already exist.
@@ -128,7 +128,7 @@ app.post('/submit', function(req, res){
 
   u.save(function(err){
     if(err)
-       res.redirect('/failed');
+      res.redirect('/failed');
     else
         res.redirect('/saved');
    });
