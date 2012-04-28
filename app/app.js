@@ -20,7 +20,6 @@ var User = require('./models/user'); // require model, pull in user model create
 var submit = require('./models/submit');
 var index = require('./routes/index');
 
-var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
 mongoose.connect('mongodb://localhost/codebase') // will create the example_db database if it doesn't already exist.
 
 // Configuration
@@ -44,9 +43,11 @@ app.configure('production', function(){
 
 // Routes
 
+/**
 app.get('/', function(req, res){
 //  postName = "some post name";
-var postName = submit.find({'posttitle': 1});
+var postName = submit.findOne({'posttitle': 1});
+console.log(postName);
 var originalPostDetail = "Post details here - author's username/date/time?";
 var post = "Posted code goes here. How many posts to show?  Archive by age? Have number of views posted?  Number of replies? Note that the header and code section is set up in index.ejs, being added to body tag in layout.ejs.";
 var postReplies = "Some post reply goes here (or should we have them click on the post to see the replies??)";
@@ -61,6 +62,22 @@ var postRepliesDetails = "post reply details go here - author's username/date/ti
     postRepliesDetails:postRepliesDetails, })
 });
 
+*/
+
+app.get('/', function(req, res){
+    submit.find({}, function(error,docs){
+        res.render('index.ejs', { locals: {
+            title: 'test',
+            post:docs,
+            postName:'some post name',
+            originalPostDetail: 'some post detail',
+            postReplies: 'some replies',
+            postRepliesDetails: 'some reply details'
+            }
+        });
+    })
+});
+
 //gets the about page
 app.get('/about', function(req, res){
 	res.render('about', { 
@@ -73,6 +90,7 @@ app.get('/submit', function(req, res){
 		title: 'submit'
 	});
 });
+
 //gets the contact page
 app.get('/contact', function(req, res){
 	res.render('contact', { 

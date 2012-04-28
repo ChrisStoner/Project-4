@@ -7,8 +7,8 @@ function validatePresenceOf(value) {
 
 
 var BlogPost = new Schema({
- post     : String,
- posttitle: String
+ posttitle: String,
+ post     : String
 });
 
 var Submit = mongoose.model('Submit', BlogPost);
