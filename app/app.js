@@ -17,6 +17,7 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 var mongoose = require('mongoose');
 var User = require('./models/user'); // require model, pull in user model created
+var Submit = require('./models/user');
 
 var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
 mongoose.connect('mongodb://localhost/codebase') // will create the example_db database if it doesn't already exist.
@@ -51,6 +52,11 @@ app.get('/about', function(req, res){
 	});
 });
 
+app.get('/submit', function(req, res){
+	res.render('submit', {
+		title: 'submit'
+	});
+});
 //gets the contact page
 app.get('/contact', function(req, res){
 	res.render('contact', { 
@@ -108,6 +114,17 @@ app.post('/blog/addComment', function(req, res) {
 
 app.post('/signup', function(req, res){
   var u = new User({firstname:req.body.firstname, lastname:req.body.lastname, username:req.body.username, password:req.body.password, email:req.body.email});
+
+  u.save(function(err){
+    if(err)
+       res.redirect('/failed');
+    else
+        res.redirect('/saved');
+   });
+});
+
+app.post('/submit', function(req, res){
+  var u = new Submit({post:req.body.post});
 
   u.save(function(err){
     if(err)
