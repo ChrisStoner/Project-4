@@ -17,7 +17,8 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 var mongoose = require('mongoose');
 var User = require('./models/user'); // require model, pull in user model created
-var Submit = require('./models/submit');
+var submit = require('./models/submit');
+var index = require('./routes/index');
 
 var articleProvider = require('./ArticleProvider-mongodb').ArticleProvider;
 mongoose.connect('mongodb://localhost/codebase') // will create the example_db database if it doesn't already exist.
@@ -43,7 +44,22 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', routes.index);
+app.get('/', function(req, res){
+//  postName = "some post name";
+var postName = submit.find({'posttitle': 1});
+var originalPostDetail = "Post details here - author's username/date/time?";
+var post = "Posted code goes here. How many posts to show?  Archive by age? Have number of views posted?  Number of replies? Note that the header and code section is set up in index.ejs, being added to body tag in layout.ejs.";
+var postReplies = "Some post reply goes here (or should we have them click on the post to see the replies??)";
+var postRepliesDetails = "post reply details go here - author's username/date/time?";
+
+  res.render('index', 
+    { title: 'CSCI', 
+    postName:postName, 
+    originalPostDetail:originalPostDetail, 
+    post:post, 
+    postReplies:postReplies,
+    postRepliesDetails:postRepliesDetails, })
+});
 
 //gets the about page
 app.get('/about', function(req, res){
